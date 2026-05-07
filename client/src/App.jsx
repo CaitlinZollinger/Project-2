@@ -29,10 +29,14 @@ function Input({nameprop, setnameprop, ageprop, setageprop, buttonfuncprop}){
 }
 
 // user is one thing (that you can have multiple of) that is in the display box
-function User({idk}){
+function User({userprop}){
     
   return(
     <>
+      <div>
+        {userprop.name}, {userprop.age}
+      </div>
+
     </>
   )
 }
@@ -40,14 +44,18 @@ function User({idk}){
 // display is the box that all the users are in
 function Display({allinfoprop}){
   
-  const allinfo = allinfoprop.map(name => <li>{name}</li>);
+  // allinfoprop is a list of objects which gets looped/mapped through to create a list of components which gets stored in allinfo
+  const allinfo = allinfoprop.map(listitem => <User userprop = {listitem}/>);
   
   return(
     <>
-
+      <div style={{backgroundColor: "lightgrey"}}>
+        {allinfo}
+      </div>
     </>
   )
 }
+
 
 
 function App() {
@@ -61,7 +69,13 @@ function App() {
     ]
   )
 
+  // submitting a new user to the back end
   function submit(){
+    axios.post("http://localhost:5000/api/submituser", {"body":{"name":name, "age":age}}).then(
+      (response) => {
+        console.log(response)
+      }
+    )
     console.log(name, age)
   }
 
@@ -76,6 +90,9 @@ function App() {
         buttonfuncprop = {() => submit()}
       />
 
+      <Display
+        allinfoprop = {allinfo}
+      />
    
     </>
   )

@@ -14,6 +14,12 @@ app.use(express.json());
 //   res.json({ message: "Hello from the MERN Server!" });
 // });
 
+app.post("/api/submituser",(request,response)=>{
+    console.log("submitted request", request.body)
+    response.send("yay!!!")
+})
+
+
 // Database Connection
 const PORT = process.env.PORT || 5000;
 
