@@ -20,9 +20,12 @@ function Input({nameprop, setnameprop, ageprop, setageprop, buttonfuncprop}){
   return(
     <>
     <div>
-      <input onChange={(evt)=>setnameprop(evt.target.value)} type="text" defaultValue={nameprop}/>
-      <input onChange={(evt)=>setageprop(evt.target.value)}type="text" defaultValue={ageprop}/>
-      <button onClick={()=>buttonfuncprop()}> Submit </button>
+      --------------------------
+      <div>ADD NEW USER:</div>
+      <div><input onChange={(evt)=>setnameprop(evt.target.value)} type="text" defaultValue={nameprop}/></div>
+      <div><input onChange={(evt)=>setageprop(evt.target.value)}type="text" defaultValue={ageprop}/></div>
+      <div><button onClick={()=>buttonfuncprop()}> Submit </button></div>
+      --------------------------
     </div>
     </>
   )
@@ -34,7 +37,7 @@ function User({userprop}){
   return(
     <>
       <div>
-        {userprop.name}, {userprop.age}
+        Name: {userprop.name} | Age: {userprop.age}
       </div>
 
     </>
@@ -42,15 +45,16 @@ function User({userprop}){
 }
 
 // display is the box that all the users are in
-function Display({allinfoprop}){
+function Display({allusersprop}){
   
-  // allinfoprop is a list of objects which gets looped/mapped through to create a list of components which gets stored in allinfo
-  const allinfo = allinfoprop.map(listitem => <User userprop = {listitem}/>);
+  // allusersprop is a list of objects which gets looped/mapped through to create a list of components which gets stored in allusers
+  const allusers = allusersprop.map(listitem => <User userprop = {listitem}/>);
   
   return(
     <>
-      <div style={{backgroundColor: "lightgrey"}}>
-        {allinfo}
+      <div>
+        USERS:
+        {allusers}
       </div>
     </>
   )
@@ -62,7 +66,7 @@ function App() {
 
   const[name, setname] = useState("Name")
   const[age, setage] = useState("Age")
-  const[allinfo, setallinfo] = useState(
+  const[allusers, setallusers] = useState(
     [
       {"name":"Caitlin", "age": "17"},
       {"name":"Matt", "age": "40"}
@@ -91,7 +95,7 @@ function App() {
       />
 
       <Display
-        allinfoprop = {allinfo}
+        allusersprop = {allusers}
       />
    
     </>

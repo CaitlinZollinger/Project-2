@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const usermodel = require('./schema/user');
 require('dotenv').config();
 
 const app = express();
@@ -16,7 +17,13 @@ app.use(express.json());
 
 app.post("/api/submituser",(request,response)=>{
     console.log("submitted request", request.body)
-    response.send("yay!!!")
+
+    let user = new usermodel({
+        name: request.body.name,
+        age: request.body.name
+    })
+
+    response.send("response")
 })
 
 
