@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+
 const usermodel = require('./schema/user');
+
 require('dotenv').config();
 
 const app = express();
@@ -19,12 +21,31 @@ app.post("/api/submituser",(request,response)=>{
     console.log("submitted request", request.body)
 
     let user = new usermodel({
-        name: request.body.name,
-        age: request.body.name
+        name: request.body.body.name,
+        age: request.body.body.age
     })
+
+    try {
+        user.save().then(data=>{
+            console.log(data)
+        });
+    } catch (error) {
+        console.error('Error saving user:', error);
+    }
 
     response.send("response")
 })
+
+
+app.get("/api/getusers",(request,response)=>{
+    // console.log("submitted request", request.body)
+    usermodel.find({}).then(data=>{
+        console.log(data)
+        response.send(data)
+    })
+    
+})
+
 
 
 // Database Connection

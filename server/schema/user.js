@@ -23,4 +23,4 @@ const userschema = new Schema({
 //and that pluralized version of the model name will also
 //become the name of the MongoDB collection.
 
-module.exports = mongoose.model("usermodel", userschema);
+module.exports = mongoose.model("user", userschema);

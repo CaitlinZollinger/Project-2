@@ -68,10 +68,17 @@ function App() {
   const[age, setage] = useState("Age")
   const[allusers, setallusers] = useState(
     [
-      {"name":"Caitlin", "age": "17"},
-      {"name":"Matt", "age": "40"}
+      
     ]
   )
+
+  useEffect(()=>{
+    
+    axios.get("http://localhost:5000/api/getusers").then(data=>{
+      setallusers(data.data)
+    })
+
+  })
 
   // submitting a new user to the back end
   function submit(){
