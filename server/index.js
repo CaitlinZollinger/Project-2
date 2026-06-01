@@ -18,7 +18,7 @@ app.use(express.json());
 // });
 
 app.post("/api/submituser",(request,response)=>{
-    console.log("submitted request", request.body)
+    //console.log("submitted request", request.body)
 
     let user = new usermodel({
         name: request.body.body.name,
@@ -27,7 +27,7 @@ app.post("/api/submituser",(request,response)=>{
 
     try {
         user.save().then(data=>{
-            console.log(data)
+            // console.log(data)
         });
     } catch (error) {
         console.error('Error saving user:', error);
@@ -36,11 +36,24 @@ app.post("/api/submituser",(request,response)=>{
     response.send("response")
 })
 
+app.delete("/api/deleteuser",(request,response)=>{
+    console.log("deleted request", request.body.name)
+
+    try {
+        usermodel.deleteOne({name: request.body.name}).then(data=>{
+            console.log("Succesfully deleted: ", data)
+        });
+    } catch (error) {
+        console.error('Error saving user:', error);
+    }
+
+    response.send("response")
+})
 
 app.get("/api/getusers",(request,response)=>{
     // console.log("submitted request", request.body)
     usermodel.find({}).then(data=>{
-        console.log(data)
+        // console.log(data)
         response.send(data)
     })
     
